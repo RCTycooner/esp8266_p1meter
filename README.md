@@ -96,7 +96,177 @@ sensors/power/p1meter/short_power_peaks 0
 
 ## Home Assistant Configuration
 
-Use this [example](https://raw.githubusercontent.com/daniel-jong/esp8266_p1meter/master/assets/p1_sensors.yaml) for home assistant's `sensor.yaml`
+Use the following example for home assistant's `sensor.yaml`
+
+```
+# Sensors for esp8266_p1meter to be used in Home Assistant
+
+- platform: mqtt
+  unique_id: p1_Consumption_nacht_energy
+  name: P1 Consumption Nacht
+  unit_of_measurement: 'kWh'
+  state_topic: "sensors/power/p1meter/consumption_low_tarif"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: energy
+  state_class: measurement
+  last_reset_topic: "sensors/power/p1meter/consumption_low_tarif"
+  last_reset_value_template: "1970-01-01T00:00:00+00:00"
+
+- platform: mqtt
+  unique_id: p1_Consumption_dag_energy
+  name: P1 Consumption Dag
+  unit_of_measurement: 'kWh'
+  state_topic: "sensors/power/p1meter/consumption_high_tarif"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: energy
+  state_class: measurement
+  last_reset_topic: "sensors/power/p1meter/consumption_high_tarif"
+  last_reset_value_template: "1970-01-01T00:00:00+00:00"
+
+- platform: mqtt
+  unique_id: p1_production_nacht_energy
+  name: P1 Return Delivery Nacht
+  unit_of_measurement: 'kWh'
+  state_topic: "sensors/power/p1meter/returndelivery_high_tarif"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: energy
+  state_class: measurement
+  last_reset_topic: "sensors/power/p1meter/returndelivery_high_tarif"
+  last_reset_value_template: "1970-01-01T00:00:00+00:00"
+
+- platform: mqtt
+  unique_id: p1_production_dag_energy
+  name: P1 Return Delivery Dag
+  unit_of_measurement: 'kWh'
+  state_topic: "sensors/power/p1meter/returndelivery_low_tarif"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: energy
+  state_class: measurement
+  last_reset_topic: "sensors/power/p1meter/returndelivery_low_tarif"
+  last_reset_value_template: "1970-01-01T00:00:00+00:00"
+
+- platform: mqtt
+  unique_id: p1_consumption_power
+  name: P1 Actual Power Consumption
+  unit_of_measurement: 'kW'
+  state_topic: "sensors/power/p1meter/actual_consumption"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: power
+  state_class: measurement
+  last_reset_topic: "sensors/power/p1meter/actual_consumption"
+  last_reset_value_template: "1970-01-01T00:00:00+00:00"
+  
+- platform: mqtt
+  unique_id: p1_production_power
+  name: P1 Actual Return Delivery
+  unit_of_measurement: 'kW'
+  state_topic: "sensors/power/p1meter/actual_returndelivery"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: power
+  state_class: measurement
+  last_reset_topic: "sensors/power/p1meter/actual_returndelivery"
+  last_reset_value_template: "1970-01-01T00:00:00+00:00"
+  
+- platform: mqtt
+  name: P1 L1 Instant Power Usage
+  unit_of_measurement: 'kW'
+  state_topic: "sensors/power/p1meter/l1_instant_power_usage"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: power
+  state_class: measurement
+
+- platform: mqtt
+  name: P1 L2 Instant Power Usage
+  unit_of_measurement: 'kW'
+  state_topic: "sensors/power/p1meter/l2_instant_power_usage"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: power
+  state_class: measurement
+
+- platform: mqtt
+  name: P1 L3 Instant Power Usage
+  unit_of_measurement: 'kW'
+  state_topic: "sensors/power/p1meter/l3_instant_power_usage"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: power
+  state_class: measurement
+
+- platform: mqtt
+  name: P1 L1 Instant Power Current
+  unit_of_measurement: 'A'
+  state_topic: "sensors/power/p1meter/l1_instant_power_current"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: current
+  state_class: measurement
+
+- platform: mqtt
+  name: P1 L2 Instant Power Current
+  unit_of_measurement: 'A'
+  state_topic: "sensors/power/p1meter/l2_instant_power_current"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: current
+  state_class: measurement
+
+- platform: mqtt
+  name: P1 L3 Instant Power Current
+  unit_of_measurement: 'A'
+  state_topic: "sensors/power/p1meter/l3_instant_power_current"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: current
+  state_class: measurement
+
+- platform: mqtt
+  name: P1 L1 Voltage
+  unit_of_measurement: 'V'   
+  state_topic: "sensors/power/p1meter/l1_voltage"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: voltage
+  state_class: measurement
+
+- platform: mqtt
+  name: P1 L2 Voltage
+  unit_of_measurement: 'V'   
+  state_topic: "sensors/power/p1meter/l2_voltage"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: voltage
+  state_class: measurement
+
+- platform: mqtt
+  name: P1 L3 Voltage
+  unit_of_measurement: 'V'   
+  state_topic: "sensors/power/p1meter/l3_voltage"
+  value_template: "{{ value|float / 1000 }}"
+  device_class: voltage
+  state_class: measurement
+
+- platform: mqtt
+  name: P1 Gas Usage
+  unit_of_measurement: 'm3'
+  state_topic: "sensors/power/p1meter/gas_meter_m3"
+  value_template: "{{ value|float / 1000 }}"
+  #device_class: gas
+  state_class: measurement
+
+- platform: mqtt
+  name: P1 Actual Tariff Group
+  state_topic: "sensors/power/p1meter/actual_tarif_group"
+
+- platform: mqtt
+  name: P1 Short Power Outages
+  state_topic: "sensors/power/p1meter/short_power_outages"
+
+- platform: mqtt
+  name: P1 Long Power Outages
+  state_topic: "sensors/power/p1meter/long_power_outages"
+
+- platform: mqtt
+  name: P1 Short Power Drops
+  state_topic: "sensors/power/p1meter/short_power_drops"
+
+- platform: mqtt
+  name: P1 Short Power Peaks
+  state_topic: "sensors/power/p1meter/short_power_peaks"
+```
 
 The automatons are yours to create.
 And always remember that sending alerts in case of a power outtage only make sense when you own a UPS battery :)
