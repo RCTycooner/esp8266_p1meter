@@ -3,10 +3,11 @@
 Software for the ESP2866 that sends P1 smart meter data to an mqtt broker (with OTA firmware updates)
 
 ## about this fork
-This fork (tries) to add support for the `Landys and Gyr E360` smartmeter (DSMR5.0)
+This fork is suited for Belgium. It originates from https://github.com/daniel-jong/esp8266_p1meter.
 
-The ![original source](https://github.com/fliphess/esp8266_p1meter) has issues with DSMR5.0 meters who like to send telegrams every 1 second at a high 115200 baud rate. 
-This causes the used SoftwareSerial to struggle to keep up and thus only receives corrupted messages. This fork switches to using the main Hardware serial port (RX) for communication with the meter.
+The Belgian DSMR5-meters have two differences to the Dutch meters, visible in the telegrams:
+- The Gas uses a different ID.
+- The Tarif indicator is inverted. (1 = day, 2 = night)
 
 # Getting started
 This setup requires:
